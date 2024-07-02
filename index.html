@@ -11,8 +11,35 @@
     <div class="window hidden" id="window">
         <i class="fa-regular fa-circle-xmark" id="close-win"></i>
         <div class="win-content">
-            <h3>comming soon :)</h3>
+            <div class="right">
+                <h3 class="head">please fill this form to hire me</h3>
+                <label for="email">email</label>
+                <input type="email" id="email" placeholder="email....">
+                <label for="username">username</label>
+                <input type="text" class="textarea" id="username" placeholder="name....">
+                <label for="phone">phone number</label>
+                <input type="number" id="phone" placeholder="phone number....">
+                <label for="budget">budget</label>
+                <input type="number" id="budget" placeholder="budget....">
+                <label for="taskdur">task durarion (optional)</label>
+                <div id="taskdur">
+                    <label for="">from:</label>
+                    <input type="date" id="startDate">
+                    <label for="">to:</label>
+                    <input type="date" id="endDate">
+                </div>
+                <label for="taskdisc">task discreption</label>
+                <input type="text" class="textarea" id="taskdisc" style="height: 10%;" placeholder="task discreption....">
+                <div><button id="sendHire">Send</button></div>
+            </div>
+            <div class="left">
+                <div></div>
+            </div>
         </div>
+    </div>
+    <div id="notification" class="hidden">
+        <span id="notificationMessage">This is a notification message!</span>
+        <button id="closeNotification">X</button>
     </div>
     <div class="main-content">
         <nav>
@@ -171,14 +198,15 @@
                     <h3>Leave a Feedback</h3>
                     <div class="comment-con">
                         <div class="left">
-                            <input type="text" id="name" placeholder="Name...">
-                            <input type="text" id="Feedback" placeholder="feedback...">
+                            <input type="text" id="name" class="textarea" placeholder="Name...">
+                            <input type="text" id="Feedback" class="textarea" placeholder="feedback...">
                             <div class="star-rating">
                                 <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars"></label>
                                 <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars"></label>
                                 <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars"></label>
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars"></label>
                                 <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                <span>rate me:</span>
                             </div>
                             <button id="submitcom">Send</button>
                         </div>

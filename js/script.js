@@ -35,7 +35,6 @@
     let getMode = localStorage.getItem("mode")
     let modeToggle = document.querySelector(".mode-toggle")
     let body = document.querySelector("body");
-
     if(getMode && getMode ==="dark"){
         body.classList.toggle("dark");
     }
@@ -64,7 +63,7 @@
     }
     //--------------------------- input validation functions ---------------------------//
     const form = document.querySelector('form');
-    const inputs = document.querySelectorAll('input')
+    const inputs = document.querySelectorAll('.textarea')
     const validate = [0,1,2,3,4,5,6,7,8,9,'/','*','-','+','=','.','@','{','}','[',']','(',')',"'",'?','<','>'];
     for(let i=0; i<validate.length;i++){
         inputs.forEach(input=>{

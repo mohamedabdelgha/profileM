@@ -25,6 +25,24 @@
 
 
 
+  //--------------------------- notifications functions ---------------------------//
+  document.getElementById('closeNotification').addEventListener('click', function() {
+    hideNotification();
+  });
+  function showNotification(message) {
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notificationMessage');
+    notificationMessage.textContent = message;
+    notification.classList.remove('hidden');
+
+    // Hide the notification after 3 seconds
+    setTimeout(hideNotification, 5000);
+  }
+
+  function hideNotification() {
+      const notification = document.getElementById('notification');
+      notification.classList.add('hidden');
+  }
   //--------------------------- get projects functions ---------------------------//
   function getProjects(){
     onSnapshot(docref1,(snapshot)=>{
@@ -87,7 +105,6 @@
     })
   }
   getProjects();
-  
   //--------------------------- get Comments functions ---------------------------//
   function getComments() {
     onSnapshot(docref2, (snapshot) => {
@@ -117,7 +134,6 @@
           </div>
         `;
       });
-  
       document.querySelector('.comments').innerHTML = comdiv;
       document.querySelectorAll('.starsdiv').forEach(starsdiv => {
         let rateNum = starsdiv.getAttribute('data-rating');
@@ -125,7 +141,6 @@
       });
     });
   }
-  
   getComments();
   function starsNumber(num, starsdiv) {
     for (let i = 0; i < num; i++) {
@@ -134,7 +149,6 @@
       starsdiv.appendChild(star);
     }
   }
-
   //--------------------------- add Comments functions ---------------------------//
   let comname = document.getElementById('name')
   let comtext = document.getElementById('Feedback')
@@ -148,9 +162,9 @@
   });
   function addComment(){
     if(comname.value==''|| comtext.value==''){
-        return alert("please enter your name and comment")
+        return showNotification("please enter your name and comment")
     }else{
-    try {
+      try {
         addDoc(docref2,{
             client_name:comname.value,
             feedback:comtext.value,
@@ -160,9 +174,57 @@
         comname.value='';
         comtext.value='';
     } catch (error) {
-        console.log(error)
-    }}
+      console.log(error)
+    }
+    showNotification('Thanks for your feedback 🖤')
+  }
   }
   addcom.onclick=()=>{
-      addComment();
+      addComment()
   }
+  //--------------------------- contacts functions ---------------------------//
+  const email = document.getElementById('email')
+  const username = document.getElementById('username')
+  const phone = document.getElementById('phone')
+  const budget = document.getElementById('budget')
+  const taskdisc = document.getElementById('taskdisc');
+  const startDate = document.getElementById('startDate')
+  const endDate = document.getElementById('endDate')
+  const sendHire = document.getElementById('sendHire')
+  function sendContact(){
+    if(email.value==''||
+      username.value==''||
+      phone.value==''||
+      budget.value==''||
+      taskdisc.value==''){
+        return showNotification("please complete all the fields")
+    }else{
+      try {
+        addDoc(docref3,{
+          email:email.value,
+          username:username.value,
+          phone:phone.value,
+          budget:budget.value,
+          taskdisc:taskdisc.value,
+          startDate:startDate.value,
+          endDate:endDate.value,
+          date:date,
+        })
+        email.value='',
+        username.value='',
+        phone.value='',
+        budget.value='',
+        taskdisc.value=''
+        startDate.value='',
+        endDate.value=''
+    } catch (error) {
+      console.log(error)
+    }
+    showNotification('Thanks for your hiring me, i will contact you soon 🖤');
+    const windowcon = document.querySelector('.window');
+    windowcon.classList.add('hidden')
+  }
+  }
+  sendHire.onclick=()=>{
+    sendContact();
+}
