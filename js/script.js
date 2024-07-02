@@ -33,8 +33,8 @@
     }
     //--------------------------- dark mode ---------------------------//
     let getMode = localStorage.getItem("mode")
-    modeToggle = document.querySelector(".mode-toggle")
-    body = document.querySelector("body");
+    let modeToggle = document.querySelector(".mode-toggle")
+    let body = document.querySelector("body");
 
     if(getMode && getMode ==="dark"){
         body.classList.toggle("dark");
@@ -55,11 +55,8 @@
                 filter.classList.remove('active');
             })
             this.classList.add('active');
-            let metadata = filters[i].getAttribute('metadata').toLocaleLowerCase();
-            console.log(metadata)
         })
     }
-    
     //--------------------------- onload window functions ---------------------------//
     window.onload=()=>{
         filters[0].classList.add('active');
@@ -82,7 +79,7 @@
     //--------------------------- close window functions ---------------------------//
     const close_win = document.getElementById('close-win');
     const windowcon = document.querySelector('.window');
-    const hirebtn = document.querySelectorAll('#hirebtn');
+    const hirebtn = document.querySelector('#hirebtn');
     close_win.onclick=()=>{
         windowcon.classList.add('hidden')
     }

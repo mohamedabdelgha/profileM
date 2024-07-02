@@ -40,9 +40,8 @@
         const year = comdate.getFullYear();
         // Format the date as DD/MM/YYYY       
         const formattedDate = `${day}/${month}/${year}`; 
-
             prodiv+=`
-            <div class="pro-card">
+            <div class="pro-card" metadata="${doc.data().status}">
                         <div class="pro-head">
                             <span class="label">${doc.data().pro_name}</span>
                             <span class="status">${doc.data().status}</span>
@@ -66,48 +65,87 @@
                 statecol.style.background=' var(--in-prog)'
             }
         })
+        //--------------------------- projects filters ---------------------------//
+        const cards = document.querySelectorAll('.pro-card');
+        const filters = document.querySelectorAll('.filters span');
+        for( let i=0;i<filters.length;i++){
+            filters[i].addEventListener('click', function(){
+              let metadata = filters[i].getAttribute('metadata').toLocaleLowerCase();
+                cards.forEach(card => {
+                    let cardmeta = card.getAttribute('metadata').toLocaleLowerCase();
+                    if (metadata === cardmeta) {
+                        card.classList.remove('hidden');
+                    } else {
+                      card.classList.add('hidden');
+                    }                    
+                    if (metadata === 'all') {
+                      card.classList.remove('hidden');
+                    }
+                });
+            })
+        }
     })
   }
   getProjects();
   
-  
   //--------------------------- get Comments functions ---------------------------//
-  function getComments(){
-    onSnapshot(docref2,(snapshot)=>{
-      let comments=[]
-      let comdiv=''
-      snapshot.docs.forEach(doc=>{
-        comments.push({id:doc.id,...doc.data()})
+  function getComments() {
+    onSnapshot(docref2, (snapshot) => {
+      let comments = [];
+      let comdiv = '';
+  
+      snapshot.docs.forEach(doc => {
+        comments.push({ id: doc.id, ...doc.data() });
         let timestamp = doc.data().date;
         const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
-        const comdate = new Date(milliseconds); 
+        const comdate = new Date(milliseconds);
         const day = String(comdate.getDate()).padStart(2, '0');
         const month = String(comdate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
         const year = comdate.getFullYear();
         // Format the date as DD/MM/YYYY       
-        const formattedDate = `${day}/${month}/${year}`; 
-
-        comdiv+=`
-        <div class="comment">
-        <i class="fa-solid fa-circle-user"></i>
-        <div class="comment-card">
-        <span>${doc.data().client_name}</span>
-        <span>${formattedDate}</span>
-        <p>${doc.data().feedback}</p>
-        </div>
+        const formattedDate = `${day}/${month}/${year}`;
+        let rateNum = doc.data().stars;
+        comdiv += `
+          <div class="comment">
+            <i class="fa-solid fa-circle-user"></i>
+            <div class="comment-card">
+              <span>${doc.data().client_name}</span>
+              <p>${doc.data().feedback}</p>
+              <div class='starsdiv' data-rating="${rateNum}"></div>
+              <span>${formattedDate}</span>
             </div>
-            `;
-          })
-          document.querySelector('.comments').innerHTML=comdiv;
-        })
-      }
-      getComments();
+          </div>
+        `;
+      });
   
-      
+      document.querySelector('.comments').innerHTML = comdiv;
+      document.querySelectorAll('.starsdiv').forEach(starsdiv => {
+        let rateNum = starsdiv.getAttribute('data-rating');
+        starsNumber(rateNum, starsdiv);
+      });
+    });
+  }
+  
+  getComments();
+  function starsNumber(num, starsdiv) {
+    for (let i = 0; i < num; i++) {
+      const star = document.createElement('label');
+      star.classList.add('stars');
+      starsdiv.appendChild(star);
+    }
+  }
+
   //--------------------------- add Comments functions ---------------------------//
   let comname = document.getElementById('name')
   let comtext = document.getElementById('Feedback')
   let addcom = document.getElementById('submitcom')
+  const ratingInputs = document.querySelectorAll('.star-rating input');
+  let userRate = 0;
+  ratingInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        userRate = this.value
+      });
+  });
   function addComment(){
     if(comname.value==''|| comtext.value==''){
         return alert("please enter your name and comment")
@@ -117,7 +155,7 @@
             client_name:comname.value,
             feedback:comtext.value,
             date:date,
-            stars:2,
+            stars:userRate,
         })
         comname.value='';
         comtext.value='';
