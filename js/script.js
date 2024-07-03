@@ -119,6 +119,12 @@
     //--------------------------- options button functions ---------------------------//
     const options_btn = document.querySelector('.options');
     const options_menu = document.querySelector('.options_menu');
+    const options_menu_li = document.querySelectorAll('.options_menu ul li');
     options_btn.onclick=()=>{
         options_menu.classList.toggle('active');
     };
+    options_menu_li.forEach(options_menu_li=>{
+        options_menu_li.onclick=()=>{
+            options_menu.classList.remove('active');
+        }
+    })
