@@ -40,6 +40,10 @@ body.dark{
     --nav-color: #4D4C4C;
     --title-icon-color: #CCC;
 }
+h3{
+    opacity: 0;
+    animation: showcoontent3 0.6s ease-in-out  0.6s 1 forwards;
+}
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
     width: 8px;
@@ -59,6 +63,39 @@ body.dark{
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #3A3B3C;
+}
+.options_menu.active{
+    display: flex;
+    opacity: 0;
+    animation: showcoontent2 0.3s ease-in-out  0.3s 1 forwards;
+}
+.options_menu{
+    display: none;
+    width: 40%;
+    background-color: var(--background-color);
+    border-radius: 20px 0 20px 20px;
+    padding: 20px 0;
+    height: fit-content;
+    position: fixed;
+    top: 60px;
+    right: 10%;
+    z-index: 200;
+}
+.options_menu ul{
+    width: 100%;
+    list-style: none;
+}
+.options_menu ul li{
+    width: 100%;
+    padding:10px;
+}
+.options_menu ul li:hover{
+    background-color: var(--text-color);
+}
+.options_menu ul li a{
+    width: 100%;
+    text-decoration: none;
+    color: var(--title-icon-color);
 }
 #notification.hidden {
     display: none;
@@ -90,7 +127,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     font-size: 16px;
     cursor: pointer;
 }
-.window{
+.window,.search_window{
     display: flex;
     position: fixed;
     z-index: 1000;
@@ -98,10 +135,10 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     height: 100%;
     background-color: var(--window-color);
 }
-.window.hidden{
+.window.hidden,.search_window.hidden{
     display: none;
 }
-.window #close-win{
+.window #close-win,.search_window #close-win{
     position: absolute;
     top: 5%;
     left: 5%;
@@ -109,10 +146,10 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     cursor: pointer;
     color: var(--background-color);
 }
-.window #close-win:hover{
+.window #close-win:hover,.search_window #close-win:hover{
     color: red;
 }
-.window .win-content{
+.window .win-content,.search_window .win-content{
     width: 80%;
     height: 80%;
     position: absolute;
@@ -419,6 +456,14 @@ nav.open ~ .dashboard .top{
     align-items: center;
     flex-direction: row;
     flex-wrap: nowrap;
+    transition: var(--tran-03);
+}
+.search .search-input.active{
+    width: 30%;
+    position: fixed;
+    top: 10px;
+    right: 2%;
+    z-index: 1010;
 }
 .search .search-input input{
     width: 80%;
@@ -441,7 +486,7 @@ nav.open ~ .dashboard .top{
     width: 40px;
     height: 40px;
     background-color: var(--background-color);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
@@ -630,6 +675,55 @@ nav.open ~ .dashboard .top{
     background-color: var(--primary-color);
     color: var(--text-color);
 }
+.dashboard .dash-achievments{
+    width: 95%;
+    height: fit-content;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 50px 0;
+    gap: 4%;
+}
+.dashboard .dash-achievments .achievcards{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px ;
+}
+.dashboard .dash-achievments .achievcard{
+    width: 20%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 15px var(--background-color);
+    gap: 4%;
+    background-color: var(--background-color);
+    opacity: 0;
+    animation: showcoontent 1s ease-in-out  0.6s 1 forwards;
+}
+.dashboard .dash-achievments .achievcard span:nth-child(2){
+    font-size: 50px;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 5px var(--black-light-color);
+}
+.dashboard .dash-achievments .achievcard span:nth-child(1){
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--title-icon-color);
+    text-transform: capitalize;
+}
 .dashboard .dash-maincontent{
     width: 95%;
     height: fit-content;
@@ -662,7 +756,7 @@ nav.open ~ .dashboard .top{
     align-items: start;
     flex-direction: column;
 }
-.dash-maincontent h3,.dash-comments h3{
+.dash-maincontent h3,.dash-comments h3,.dash-achievments h3{
     font-size: 25px;
     color: var(--primary-color);
     text-transform: capitalize;
@@ -1089,6 +1183,7 @@ nav.open ~ .dashboard .top{
     .dashboard .top .search{
         width: 60%;
     }
+    .search .options{display: flex;}
     .dash-content .intro{
         margin-top: 30px;
         overflow: hidden;
@@ -1201,5 +1296,15 @@ nav.open ~ .dashboard .top{
     #notification {
         top: 60px;
         left: 10px;
+    }
+    .dashboard .dash-achievments {
+        margin: 20px 0;
+    }
+    .dashboard .dash-achievments .achievcards{
+        margin: 20px 0;
+    }
+    .dashboard .dash-achievments .achievcard{
+    width: 40%;
+    margin: 10px ;
     }
 }

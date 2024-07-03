@@ -33,19 +33,21 @@
     }
     //--------------------------- dark mode ---------------------------//
     let getMode = localStorage.getItem("mode")
-    let modeToggle = document.querySelector(".mode-toggle")
+    let modeToggle = document.querySelectorAll(".mode-toggle")
     let body = document.querySelector("body");
     if(getMode && getMode ==="dark"){
         body.classList.toggle("dark");
     }
-    modeToggle.addEventListener("click", () =>{
-        body.classList.toggle("dark");
-        if(body.classList.contains("dark")){
-            localStorage.setItem("mode", "dark");
-        }else{
-            localStorage.setItem("mode", "light");
-        }
-    });
+    modeToggle.forEach(modeToggle=>{
+        modeToggle.addEventListener("click", () =>{
+            body.classList.toggle("dark");
+            if(body.classList.contains("dark")){
+                localStorage.setItem("mode", "dark");
+            }else{
+                localStorage.setItem("mode", "light");
+            }
+        });
+    })
     //--------------------------- projects filters ---------------------------//
     const filters = document.querySelectorAll('.filters span');
     for( let i=0;i<filters.length;i++){
@@ -76,7 +78,7 @@
             })
         }
     //--------------------------- close window functions ---------------------------//
-    const close_win = document.getElementById('close-win');
+    const close_win = document.querySelector('.window #close-win');
     const windowcon = document.querySelector('.window');
     const hirebtn = document.querySelector('#hirebtn');
     close_win.onclick=()=>{
@@ -98,6 +100,25 @@
                     link.classList.remove('selected');
                     document.querySelector('.nav-links li a[href*='+id+']').classList.add('selected')
                     })
-            }
+                }
         })
     }
+    //--------------------------- search_input functions ---------------------------//
+    const search_input = document.querySelector('.search-input input');
+    const search_window = document.querySelector('.search_window');
+    const search_window_close = document.querySelector('.search_window #close-win');
+    const search_input_con = document.querySelector('.search-input');
+    search_input.onfocus=()=>{
+        search_input_con.classList.add("active");
+        search_window.classList.remove('hidden');
+    }    
+    search_window_close.onclick=()=>{
+        search_window.classList.add('hidden');
+        search_input_con.classList.remove("active");
+    }
+    //--------------------------- options button functions ---------------------------//
+    const options_btn = document.querySelector('.options');
+    const options_menu = document.querySelector('.options_menu');
+    options_btn.onclick=()=>{
+        options_menu.classList.toggle('active');
+    };

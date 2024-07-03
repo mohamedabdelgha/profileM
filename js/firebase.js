@@ -1,6 +1,6 @@
   // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore,collection,addDoc, onSnapshot,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore,collection,addDoc, onSnapshot,doc,getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -228,3 +228,59 @@
   sendHire.onclick=()=>{
     sendContact();
 }
+//--------------------------- count Documents functions ---------------------------//
+async function countDocuments(collectionRef) {
+  try { // Use query with limit  
+      const snapshot = await getDocs(collectionRef);
+      // Empty check and size for total count
+      return snapshot.empty ? 0 : snapshot.size;
+      } catch (error) {
+          console.error("Error counting documents:", error);
+      return 0; // Return 0 on error for safety
+      }
+}
+const number1 = document.getElementById('number1');
+countDocuments(docref1).then((count) => {
+  const interval = 500;
+  let startValue1 = -1;
+  const endValue = count;
+  let duration = Math.floor(interval / endValue);
+  let counter =setInterval(function(){
+      startValue1 +=1;
+      console.log(startValue1)
+      number1.innerHTML = startValue1;
+      if(startValue1 ==endValue){
+          clearInterval(counter);
+      }
+  },duration);
+});
+const number2 = document.getElementById('number2');
+countDocuments(docref2).then((count) => {
+  const interval = 500;
+  let startValue1 = -1;
+  const endValue = count;
+  let duration = Math.floor(interval / endValue);
+  let counter =setInterval(function(){
+      startValue1 +=1;
+      console.log(startValue1)
+      number2.innerHTML = startValue1;
+      if(startValue1 ==endValue){
+          clearInterval(counter);
+      }
+  },duration);
+});
+const number3 = document.getElementById('number3');
+countDocuments(docref3).then((count) => {
+  const interval = 500;
+  let startValue1 = -1;
+  const endValue = count;
+  let duration = Math.floor(interval / endValue);
+  let counter =setInterval(function(){
+      startValue1 +=1;
+      console.log(startValue1)
+      number3.innerHTML = startValue1;
+      if(startValue1 ==endValue){
+          clearInterval(counter);
+      }
+  },duration);
+});
