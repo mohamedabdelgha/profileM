@@ -61,8 +61,8 @@
             prodiv+=`
             <div class="pro-card" metadata="${doc.data().status}">
                         <div class="pro-head">
-                            <span class="label">${doc.data().pro_name}</span>
-                            <span class="status">${doc.data().status}</span>
+                          <span class="status">${doc.data().status}</span>
+                          <span class="label">${doc.data().pro_name}</span>
                         </div>
                         <p class="discreprion">${doc.data().discripe}</p>
                         <span class="date"> ${formattedDate}</span>

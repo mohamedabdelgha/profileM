@@ -7,7 +7,6 @@
             })
             this.classList.add('selected');
         });
-        
     }
     //--------------------------- text transition ---------------------------//
     const text=document.getElementById("sec-text");
