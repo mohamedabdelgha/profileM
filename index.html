@@ -71,7 +71,7 @@
                 </div>
                 <label for="taskdisc">task discreption</label>
                 <input type="text" class="textarea" id="taskdisc" style="height: 10%;" placeholder="task discreption....">
-                <div><button id="sendHire">Send</button></div>
+                <div style="width: 100%;"><button id="sendHire">Send</button></div>
             </div>
             <div class="left">
                 <div></div>
@@ -125,6 +125,9 @@
         </nav>
         <div class="dashboard">
             <div class="top">
+                <div class="logo-image">
+                    <h1>MA</h1>       
+                </div>
                 <h3><i class="fa-solid fa-bars" id="menuopen"></i> Home > profile</h3>
                 <div class="search">
                     <div class="search-input">
@@ -139,7 +142,13 @@
             <section class="dash-content dash1">
                 <div class="intro section" id="home">
                     <div class="shape"></div>
-                    <div class="image-con"></div>
+                    <div class="image-container">
+                        <div class="image-con"></div>
+                        <div class="buttons">
+                            <button><i class="fa-solid fa-paper-plane"></i></button>
+                            <button><i class="fa-regular fa-star-half-stroke"></i></button>
+                        </div>
+                    </div>
                     <div class="head-title">
                         <h2>Hello, I'm </h2>
                         <span>Mohamed Abd Elghany</span>
@@ -171,9 +180,9 @@
                 </div>
                 <div class="footer">
                     <div class="section" id="hireme">
-                        <i class="fa-brands fa-servicestack selected"></i>
-                        <i class="fa-solid fa-microchip"></i>
-                        <i class="fa-solid fa-trophy"></i>
+                        <i meta-data='ui1' class="fa-brands fa-servicestack "></i>
+                        <i meta-data='ui2' class="fa-solid fa-microchip"></i>
+                        <i meta-data='ui3' class="fa-solid fa-trophy"></i>
                     </div>
                     <div class="lists">
                         <ul id="ui1">
@@ -183,14 +192,14 @@
                             <li>graphic design</li>
                             <li>hosting services</li>
                         </ul>
-                        <ul class="hiddenUL">
+                        <ul id="ui2">
                             <li class="headul">Soft Skills</li>
                             <li>problem solving</li>
                             <li>communications</li>
                             <li>teamwork</li>
                             <li>discipline</li>
                         </ul>
-                        <ul class="hiddenUL">
+                        <ul id="ui3">
                             <li class="headul">Hard Skills</li>
                             <li>javascript</li>
                             <li>dart</li>
@@ -218,20 +227,20 @@
                             <span><i class="fa-solid fa-plus"></i> <span id="number3" metadata="docref3"></span></span>
                         </div>
                         <div class="achievcard">
-                            <span>experience years</span>
+                            <span>experience</span>
                             <span>4</span>
                         </div>
                     </div>
                 </section>
                 <section class="dash-maincontent">
+                    <div class="filters">
+                        <span class="filterbtn" metadata="All"><h5>All <span>Projects</span></h5></span>
+                        <span class="filterbtn" metadata="Completed"><h5><i class="fa-solid fa-circle-check"></i><span> Completed</span></h5></span>
+                        <span class="filterbtn" metadata="In Progress"><h5><i class="fa-solid fa-spinner"></i><span> In Progress</span></h5> </span>
+                        <span class="filterbtn" metadata="Not Started"><h5><i class="fa-solid fa-hourglass-end"></i><span> Not Started</span></h5></span>
+                    </div>
                     <div class="rightcon section" id="projects">
                         <h3>My Projects</h3>
-                        <div class="filters">
-                            <span metadata="All">All</span>
-                            <span metadata="Completed"><i class="fa-solid fa-circle-check"></i> Completed</span>
-                            <span metadata="In Progress"><i class="fa-solid fa-spinner"></i> In Progress </span>
-                            <span metadata="Not Started"><i class="fa-solid fa-hourglass-end"></i> Not Started</span>
-                        </div>
                         <div class="pro-cards">
                             <h4>loading.................</h4>
                         </div>
@@ -290,35 +299,41 @@
                     </div>
                 </section>
                 <section class="dash-comments section" id="comments">
-                    <h3>Clients Feedback</h3>
-                    <div class="comments">
-                        <h2>loading..................</h2>
-                    </div>
-                    <div class="leave-comment">
-                        <h3>Leave a Feedback</h3>
                         <div class="comment-con">
-                            <div class="left">
-                                <input type="text" id="name" class="textarea" placeholder="Name...">
-                                <input type="text" id="Feedback" class="textarea" placeholder="feedback...">
-                                <div class="star-rating">
-                                    <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
-                                    <span>rate me:</span>
-                                </div>
-                                <button id="submitcom">Send</button>
-                            </div>
                             <div class="right">
-                                <i class="fa-solid fa-comments"></i>
-                                <i class="fa-regular fa-comment-dots"></i>
-                                <i class="fa-regular fa-comment-dots"></i>
+                                <h3>Clients Feedback</h3>
+                                <div class="cardsWraper">
+                                    <i id="left" class="fa-solid fa-chevron-left"></i>
+                                    <div class="comments">
+                                        <div class="comment-card">
+                                            <span></span>
+                                            <p></p>
+                                            <div class='starsdiv'></div>
+                                            <span></span>
+                                        </div>                              
+                                    </div>
+                                    <i id="right" class="fa-solid fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            <h3>Leave a Feedback</h3>
+                            <div class="left">
+                                <div style=" width: 50%;display: flex;justify-content: center;align-items: start;flex-direction: column;padding:0 0 0 20px;">
+                                    <input type="text" id="name" class="textarea" placeholder="Name...">
+                                    <div class="star-rating">
+                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars"></label>
+                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars"></label>
+                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars"></label>
+                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars"></label>
+                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                        <span>rate me:</span>
+                                    </div>
+                                    <button id="submitcom">Send</button>
+                                </div>
+                                <textarea placeholder="feedback..." id="Feedback" class="textarea"></textarea>
+                                
                             </div>
                         </div>
-                    </div>
                 </section>
-                
             </section>
         </div>
     </div>

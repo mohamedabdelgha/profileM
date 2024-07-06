@@ -57,11 +57,7 @@
             this.classList.add('active');
         })
     }
-    //--------------------------- onload window functions ---------------------------//
-    window.onload=()=>{
-        filters[0].classList.add('active');
-        nav_links[0].classList.add('selected');
-    }
+
     //--------------------------- input validation functions ---------------------------//
     const form = document.querySelector('form');
     const inputs = document.querySelectorAll('.textarea')
@@ -70,7 +66,6 @@
         inputs.forEach(input=>{
             input.addEventListener('keyup', ()=>{
                 if(input.value.includes(validate[i])){
-                    console.log('invalid')
                     input.style.border='1px solid red'
                 }
             })
@@ -79,13 +74,15 @@
     //--------------------------- close window functions ---------------------------//
     const close_win = document.querySelector('.window #close-win');
     const windowcon = document.querySelector('.window');
-    const hirebtn = document.querySelector('#hirebtn');
+    const hirebtn = document.querySelectorAll('#hirebtn');
     close_win.onclick=()=>{
         windowcon.classList.add('hidden')
     }
-    hirebtn.onclick=()=>{
-        windowcon.classList.remove('hidden')
-    }
+    hirebtn.forEach(btn=>{
+        btn.onclick=()=>{
+            windowcon.classList.remove('hidden')
+        }
+    })
     //--------------------------- navbar customization functions ---------------------------//
     const sections = document.querySelectorAll('.section');
     window.onscroll=()=>{
@@ -127,3 +124,89 @@
             options_menu.classList.remove('active');
         }
     })
+    //--------------------------- footer functions ---------------------------//
+    const footerItems = document.querySelectorAll('.footer #hireme i');
+    const footerLists = document.querySelectorAll('.footer .lists ul');
+    for(let x=0;x<footerItems.length;x++){
+        footerItems[x].addEventListener('click',function(){
+            footerItems.forEach(item=>{
+                item.classList.remove('selected')
+            })
+            footerItems[x].classList.add('selected')
+            let metadata = footerItems[x].getAttribute('meta-data');
+            footerLists.forEach(list=>{
+                list.classList.add('hiddenUL')
+            })
+            document.getElementById(metadata).classList.remove('hiddenUL')
+        })
+    }
+    //--------------------------- onload window functions ---------------------------//
+    window.onload=()=>{
+        filters[0].classList.add('active');
+        nav_links[0].classList.add('selected');
+        footerItems[0].classList.add('selected')
+        let ULmetadata = footerItems[0].getAttribute('meta-data');
+        footerLists.forEach(list=>{
+            list.classList.add('hiddenUL')
+        })
+        document.getElementById(ULmetadata).classList.remove('hiddenUL')
+    }
+    //portofolio slider functions -------------------------------------------------------------------------------------------------
+    const cardsWraper = document.querySelector('.cardsWraper');
+    const cardsCon = document.querySelector('.comments');
+    const arrowsScroll = document.querySelectorAll('.cardsWraper i');
+    const firstCardWidth = cardsCon.querySelector('.comment-card').offsetWidth;
+    console.log(firstCardWidth)
+    const secondCardWidth = firstCardWidth+70;
+    const cardsConChildren = [...cardsCon.children];
+    let cardPreview = Math.round(cardsCon.offsetWidth / secondCardWidth);
+    let isDragging = false , startX , startScrollLeft , timeoutId;
+    cardsConChildren.slice(-cardPreview).reverse().forEach(card =>{
+        cardsCon.insertAdjacentHTML('afterbegin', card.outerHTML);
+    })
+    cardsConChildren.slice(0, cardPreview).forEach(card =>{
+        cardsCon.insertAdjacentHTML('beforeend', card.outerHTML);
+    })
+    arrowsScroll.forEach( btn =>{
+        btn.addEventListener('click' , ()=>{
+            cardsCon.scrollLeft+=btn.id === 'left' ? -secondCardWidth : secondCardWidth ;
+        });
+    });
+    const dragstart = (e)=>{
+        isDragging=true;
+        cardsCon.classList.add('dragging');
+        startX = e.pageX;
+        startScrollLeft = cardsCon.scrollLeft;
+    };
+    const dragging = (e)=>{
+        if(!isDragging) return;
+        cardsCon.scrollLeft =startScrollLeft- (e.pageX - startX);
+    }
+    const dragstop = ()=>{
+        isDragging=false;
+        cardsCon.classList.remove('dragging');
+    }
+    const infiniteScroll =  ()=>{
+        if(cardsCon.scrollLeft === 0){
+            cardsCon.classList.add('notransition')
+            cardsCon.scrollLeft = cardsCon.scrollWidth - (2*cardsCon.offsetWidth);
+            cardsCon.classList.remove('notransition')
+        }else if(Math.ceil(cardsCon.scrollLeft) === cardsCon.scrollWidth - cardsCon.offsetWidth){
+            cardsCon.classList.add('notransition')
+            cardsCon.scrollLeft = cardsCon.offsetWidth;
+            cardsCon.classList.remove('notransition')
+        }
+        clearTimeout(timeoutId);
+        if(!cardsWraper.matches(':hover')) autoPlay();
+    }
+    const autoPlay = ()=>{
+        if(window.innerWidth <800) return;
+        timeoutId = setTimeout(()=> cardsCon.scrollLeft += secondCardWidth,2500)
+    }
+    autoPlay();
+    cardsCon.addEventListener( 'mousedown', dragstart );
+    cardsCon.addEventListener( 'mousemove', dragging );
+    document.addEventListener( 'mouseup', dragstop );
+    cardsCon.addEventListener( 'scroll', infiniteScroll );
+    cardsWraper.addEventListener( 'mouseenter', ()=>{clearTimeout(timeoutId);} );
+    cardsWraper.addEventListener( 'mouseleave', autoPlay );

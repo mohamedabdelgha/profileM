@@ -49,25 +49,26 @@
         let projects=[]
         let prodiv=''
         snapshot.docs.forEach(doc=>{
-            projects.push({id:doc.id,...doc.data()})
-            let timestamp = doc.data().date;
-        const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
-        const comdate = new Date(milliseconds); 
-        const day = String(comdate.getDate()).padStart(2, '0');
-        const month = String(comdate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-        const year = comdate.getFullYear();
-        // Format the date as DD/MM/YYYY       
-        const formattedDate = `${day}/${month}/${year}`; 
-            prodiv+=`
-            <div class="pro-card" metadata="${doc.data().status}">
-                        <div class="pro-head">
-                          <span class="status">${doc.data().status}</span>
-                          <span class="label">${doc.data().pro_name}</span>
-                        </div>
-                        <p class="discreprion">${doc.data().discripe}</p>
-                        <span class="date"> ${formattedDate}</span>
-            </div>
-            `;
+          projects.push({id:doc.id,...doc.data()})
+          let timestamp = doc.data().date;
+          let status = doc.data().status;
+          const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
+          const comdate = new Date(milliseconds); 
+          const day = String(comdate.getDate()).padStart(2, '0');
+          const month = String(comdate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+          const year = comdate.getFullYear();
+          // Format the date as DD/MM/YYYY       
+          const formattedDate = `${day}/${month}/${year}`; 
+          prodiv+=`
+          <div class="pro-card" metadata="${doc.data().status}">
+          <div class="pro-head">
+          <span class="status">${doc.data().status}</span>
+          <span class="label">${doc.data().pro_name}</span>
+          </div>
+          <p class="discreprion">${doc.data().discripe}</p>
+          <span class="date"> ${formattedDate}</span>
+          </div>
+          `;
         })
         document.querySelector('.pro-cards').innerHTML=prodiv;
         //--------------------------- status color functions ---------------------------//
@@ -75,12 +76,15 @@
         statuscol.forEach(statecol=>{
             if(statecol.innerHTML.toLocaleLowerCase()=='completed'){
                 statecol.style.background=' var(--completed)'
-            }
-            if(statecol.innerHTML.toLocaleLowerCase()=='not started'){
+                statecol.innerHTML='<i class="fa-solid fa-circle-check"></i>'
+              }
+              if(statecol.innerHTML.toLocaleLowerCase()=='not started'){
                 statecol.style.background=' var(--not-started)'
-            }
-            if(statecol.innerHTML.toLocaleLowerCase()=='in progress'){
+                statecol.innerHTML='<i class="fa-solid fa-hourglass-end"></i>'
+              }
+              if(statecol.innerHTML.toLocaleLowerCase()=='in progress'){
                 statecol.style.background=' var(--in-prog)'
+                statecol.innerHTML='<i class="fa-solid fa-spinner"></i>'
             }
         })
         //--------------------------- projects filters ---------------------------//
@@ -123,15 +127,13 @@
         const formattedDate = `${day}/${month}/${year}`;
         let rateNum = doc.data().stars;
         comdiv += `
-          <div class="comment">
-            <i class="fa-solid fa-circle-user"></i>
             <div class="comment-card">
+              <div class="comment-img"></div>
               <span>${doc.data().client_name}</span>
-              <p>${doc.data().feedback}</p>
               <div class='starsdiv' data-rating="${rateNum}"></div>
+              <p>${doc.data().feedback}</p>
               <span>${formattedDate}</span>
             </div>
-          </div>
         `;
       });
       document.querySelector('.comments').innerHTML = comdiv;
@@ -247,7 +249,6 @@ countDocuments(docref1).then((count) => {
   let duration = Math.floor(interval / endValue);
   let counter =setInterval(function(){
       startValue1 +=1;
-      console.log(startValue1)
       number1.innerHTML = startValue1;
       if(startValue1 ==endValue){
           clearInterval(counter);
@@ -262,7 +263,6 @@ countDocuments(docref2).then((count) => {
   let duration = Math.floor(interval / endValue);
   let counter =setInterval(function(){
       startValue1 +=1;
-      console.log(startValue1)
       number2.innerHTML = startValue1;
       if(startValue1 ==endValue){
           clearInterval(counter);
@@ -277,7 +277,6 @@ countDocuments(docref3).then((count) => {
   let duration = Math.floor(interval / endValue);
   let counter =setInterval(function(){
       startValue1 +=1;
-      console.log(startValue1)
       number3.innerHTML = startValue1;
       if(startValue1 ==endValue){
           clearInterval(counter);
