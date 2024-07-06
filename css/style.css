@@ -276,6 +276,7 @@ nav .logo-image h1{
     font-family: "Black Ops One", system-ui;
     font-weight: 400;
     font-style: normal;
+    color: var(--background1-color);
 }
 nav.open .logo-image{
     display: flex;
@@ -1086,6 +1087,14 @@ nav.open ~ .dashboard .top{
 .dashboard .dash-comments .comment-con .left textarea{
     height: 45%;
 }
+.dashboard .dash-comments .comment-con .left .contentInput1{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    padding:0 0 0 20px;
+}
 
 .dashboard .dash-comments .comment-con .right{
     width: 100%;
@@ -1229,6 +1238,7 @@ nav.open ~ .dashboard .top{
 .comment-card .starsdiv .stars::before{
     content: '★';
 }
+
 .footer{
     width: 100%;
     min-height: 60vh;
@@ -1549,6 +1559,7 @@ nav.open ~ .dashboard .top{
         font-family: "Black Ops One", system-ui;
         font-weight: 400;
         font-style: normal;
+        color: var(--background1-color);
     }
     .dash-maincontent .leftcon .div1 .certificates ul li{
         width: 80%;
@@ -1569,6 +1580,11 @@ nav.open ~ .dashboard .top{
     .dashboard .dash-comments .comments .comment-card{
         min-width: 180px;
         height: 180px;
+    }
+    .dashboard .dash-comments .comment-con .left .contentInput1{
+        width: 100%;
+        padding: 0;
+        align-items: center;
     }
     .dashboard .dash-comments .comments .comment-card .comment-img{display: none;}
     .dashboard .dash-comments .comments .comment-card span:nth-child(2){margin-top: 0;}
