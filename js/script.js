@@ -1,4 +1,11 @@
     //--------------------------- menu transition ---------------------------//
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(() => {
+            const loader = document.querySelector('.loading-container');
+            loader.style.display = 'none'; // Hide the loader
+        }, 1000); // 3 seconds
+    });
+    //--------------------------- menu transition ---------------------------//
     const nav_links = document.querySelectorAll('.nav-links li a');
     for( let x=0;x<nav_links.length;x++){
         nav_links[x].addEventListener('click', function(){

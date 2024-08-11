@@ -67,10 +67,23 @@
           </div>
           <p class="discreprion">${doc.data().discripe}</p>
           <span class="date"> ${formattedDate}</span>
+          <div class="shadow">
+            <a meta-id="${doc.id}"><i class="fa-solid fa-link"></i> see more</a>
+          </div>
           </div>
           `;
         })
         document.querySelector('.pro-cards').innerHTML=prodiv;
+        //--------------------------- product details functions ---------------------------//
+        const links = document.querySelectorAll('.shadow a');
+        const details_window = document.querySelector('.details_window');
+        links.forEach(link=>{
+          link.addEventListener('click',function(){
+            const pro_id= link.getAttribute('meta-id');
+            console.log(pro_id)
+            details_window.classList.remove('hidden')
+          })
+        })
         //--------------------------- status color functions ---------------------------//
         const statuscol = document.querySelectorAll('.status');
         statuscol.forEach(statecol=>{
@@ -105,7 +118,7 @@
                     }
                 });
             })
-        }
+        }      
     })
   }
   getProjects();
