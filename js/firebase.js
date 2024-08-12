@@ -1,6 +1,6 @@
   // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore,collection,addDoc, onSnapshot,doc,getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore,collection,addDoc, onSnapshot,doc,getDocs,getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -78,9 +78,18 @@
         const links = document.querySelectorAll('.shadow a');
         const details_window = document.querySelector('.details_window');
         links.forEach(link=>{
-          link.addEventListener('click',function(){
+          link.addEventListener('click',async function(){
             const pro_id= link.getAttribute('meta-id');
-            console.log(pro_id)
+            try {
+              const parentdocref=doc(db , 'projects', pro_id)
+              const docsnap = await getDoc(parentdocref);
+              document.querySelector('.details_window .win-content .right .title').innerHTML=docsnap.data().pro_name
+              document.querySelector('.details_window .win-content .right .disc').innerHTML=docsnap.data().discripe
+              document.querySelector('.details_window .win-content .right .date').innerHTML=docsnap.data().date
+              document.querySelector('.details_window .win-content .right .repo_link').href=docsnap.data().link
+            } catch (error) {
+              console.log(error)
+            }
             details_window.classList.remove('hidden')
           })
         })

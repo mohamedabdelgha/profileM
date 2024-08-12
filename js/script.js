@@ -90,6 +90,12 @@
             windowcon.classList.remove('hidden')
         }
     })
+    //--------------------------- close details_window functions ---------------------------//
+    const close_details_window = document.querySelector('.details_window #close-win');
+    const details_window = document.querySelector('.details_window');
+    close_details_window.onclick=()=>{
+        details_window.classList.add('hidden')
+    }
     //--------------------------- navbar customization functions ---------------------------//
     const sections = document.querySelectorAll('.section');
     window.onscroll=()=>{
