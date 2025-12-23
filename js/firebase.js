@@ -68,7 +68,7 @@
           <p class="discreprion">${doc.data().discripe}</p>
           <span class="date"> ${formattedDate}</span>
           <div class="shadow">
-            // <a meta-id="${doc.id}"><i class="fa-solid fa-link"></i> see more</a>
+            
           </div>
           </div>
           `;
@@ -306,3 +306,4 @@ countDocuments(docref3).then((count) => {
   },duration);
 
 });
+
